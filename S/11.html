@@ -1,0 +1,119 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html xmlns='http://www.w3.org/1999/xhtml'>
+<head>
+<title>ktest/test/Makefile</title>
+<meta name='robots' content='noindex,nofollow' />
+<meta name='generator' content='GLOBAL-6.6.11' />
+<meta http-equiv='Content-Style-Type' content='text/css' />
+<link rel='stylesheet' type='text/css' href='../style.css' />
+</head>
+<body>
+<!-- beginning of fixed guide -->
+<div id='guide'><ul>
+<li><a href='#TOP'><img class='icon' src='../icons/first.png' alt='[^]' /></a></li>
+<li><a href='#BOTTOM'><img class='icon' src='../icons/last.png' alt='[v]' /></a></li>
+<li><a href='#TOP'><img class='icon' src='../icons/top.png' alt='[top]' /></a></li>
+<li><a href='#BOTTOM'><img class='icon' src='../icons/bottom.png' alt='[bottom]' /></a></li>
+<li><a href='../mains.html'><img class='icon' src='../icons/index.png' alt='[index]' /></a></li>
+<li><a href='../help.html'><img class='icon' src='../icons/help.png' alt='[help]' /></a></li>
+<li class='standout'><span><a href='../files/14.html'>ktest</a>/<a href='../files/19.html'>test</a>/Makefile</span></li>
+</ul></div>
+<!-- end of fixed guide -->
+<a id='TOP' name='TOP'></a><h2 class='header'><a href='../mains.html'>root</a>/<a href='../files/14.html'>ktest</a>/<a href='../files/19.html'>test</a>/Makefile</h2>
+<em class='comment'>/* <img class='icon' src='../icons/n_left.png' alt='[previous]' /><img class='icon' src='../icons/n_right.png' alt='[next]' /><img class='icon' src='../icons/n_first.png' alt='[first]' /><img class='icon' src='../icons/n_last.png' alt='[last]' /><img class='icon' src='../icons/n_top.png' alt='[top]' /><a href='#BOTTOM'><img class='icon' src='../icons/bottom.png' alt='[bottom]' /></a><a href='../mains.html'><img class='icon' src='../icons/index.png' alt='[index]' /></a><a href='../help.html'><img class='icon' src='../icons/help.png' alt='[help]' /></a>&nbsp;<input type='text' readonly onfocus='this.select();' value='+1 ktest/test/Makefile'  /> */</em>
+<hr />
+<pre>
+<a id='L1' name='L1'></a>
+<a id='L2' name='L2'></a>#*******************************************#
+<a id='L3' name='L3'></a>#                                           #
+<a id='L4' name='L4'></a>#    GNU Makefile to build Ktest binary     #
+<a id='L5' name='L5'></a>#                                           #
+<a id='L6' name='L6'></a>#*******************************************#
+<a id='L7' name='L7'></a>
+<a id='L8' name='L8'></a>PKGNAME  :=  Ktest
+<a id='L9' name='L9'></a>ELFNAME  :=  ktest
+<a id='L10' name='L10'></a>TARGET   :=  $(ELFNAME).out
+<a id='L11' name='L11'></a>
+<a id='L12' name='L12'></a>PREFIX   ?= /usr/local
+<a id='L13' name='L13'></a>SRCDIR   :=  src
+<a id='L14' name='L14'></a>OBJDIR   :=  obj
+<a id='L15' name='L15'></a>LIBDIR   :=  ../libktest
+<a id='L16' name='L16'></a>
+<a id='L17' name='L17'></a>CC       ?=  gcc
+<a id='L18' name='L18'></a>CFLAGS   := -g -O3 -MMD -fPIE
+<a id='L19' name='L19'></a>CPPFLAGS := -Wdate-time -D_FORTIFY_SOURCE=2
+<a id='L20' name='L20'></a>WFLAGS   := -Wall -Wextra -Wno-unused-parameter -Werror
+<a id='L21' name='L21'></a>WFLAGS   += -Wno-pedantic -Wtraditional-conversion -Wstrict-prototypes \
+<a id='L22' name='L22'></a>            -Wformat=2 -Wformat-overflow=2 -Wformat-truncation=2 -Wformat-security -Wnull-dereference -Wstack-protector \
+<a id='L23' name='L23'></a>            -Wtrampolines -Walloca -Wvla -Warray-bounds=2 -Wimplicit-fallthrough=3 -Wshift-overflow=2 -Wcast-qual \
+<a id='L24' name='L24'></a>            -Wstringop-overflow=4 -Wconversion -Wint-conversion -Wlogical-op -Wduplicated-cond -Wduplicated-branches \
+<a id='L25' name='L25'></a>            -Wformat-signedness -Wshadow -Wstrict-overflow=4 -Wundef -Wswitch-default -Wswitch-enum -Wstack-usage=4096 -Wcast-align=strict
+<a id='L26' name='L26'></a>INCLUDE  += -I$(LIBDIR)/src
+<a id='L27' name='L27'></a>LDFLAGS  += -Wl,-z,relro -Wl,-z,now -Wl,-z,noexecstack -Wl,-z,separate-code -Wl,-Bsymbolic-functions
+<a id='L28' name='L28'></a>LDFLAGS  += -Wl,-rpath=$(LIBDIR)/libs -L$(LIBDIR)/libs
+<a id='L29' name='L29'></a>LDLIBS   += -lktest
+<a id='L30' name='L30'></a>
+<a id='L31' name='L31'></a>FSTACK  := -fstack-protector-all -fstack-protector-strong -fstack-clash-protection
+<a id='L32' name='L32'></a>FASAN   := -fsanitize=address -fsanitize=pointer-compare -fsanitize=pointer-subtract -fsanitize=leak -fno-omit-frame-pointer \
+<a id='L33' name='L33'></a>           -fsanitize=undefined -fsanitize=bounds-strict -fsanitize=float-divide-by-zero -fsanitize=float-cast-overflow
+<a id='L34' name='L34'></a>CFLAGS  += $(FSTACK) $(FASAN)
+<a id='L35' name='L35'></a>LDFLAGS += $(FASAN)
+<a id='L36' name='L36'></a>
+<a id='L37' name='L37'></a>ifneq (,$(wildcard $(HOME)/.termux))
+<a id='L38' name='L38'></a>    CPPFLAGS += -DTERMUX
+<a id='L39' name='L39'></a>else
+<a id='L40' name='L40'></a>    CPPFLAGS +=
+<a id='L41' name='L41'></a>endif
+<a id='L42' name='L42'></a>
+<a id='L43' name='L43'></a>BOLD := $(shell tput bold)
+<a id='L44' name='L44'></a>NC   := $(shell tput sgr0)
+<a id='L45' name='L45'></a>
+<a id='L46' name='L46'></a># Source files
+<a id='L47' name='L47'></a>SRCS := $(SRCDIR)/ktest_usage.c
+<a id='L48' name='L48'></a>
+<a id='L49' name='L49'></a># Object files
+<a id='L50' name='L50'></a>OBJS := $(SRCS:%.c=$(OBJDIR)/%.o)
+<a id='L51' name='L51'></a>
+<a id='L52' name='L52'></a># Build dependencies
+<a id='L53' name='L53'></a>DEPS := $(OBJS:%.o=%.d)
+<a id='L54' name='L54'></a>
+<a id='L55' name='L55'></a># Makefile execution starts here
+<a id='L56' name='L56'></a>all: info $(TARGET)
+<a id='L57' name='L57'></a>
+<a id='L58' name='L58'></a>info:
+<a id='L59' name='L59'></a>        @echo "\n$(BOLD)Building $(PKGNAME) ...$(NC)"
+<a id='L60' name='L60'></a>
+<a id='L61' name='L61'></a># Link object files and generate executable
+<a id='L62' name='L62'></a>$(TARGET): $(OBJS)
+<a id='L63' name='L63'></a>        @echo  "\n$(BOLD)Linking object files ...$(NC)"
+<a id='L64' name='L64'></a>        $(CC) -o $(TARGET) $(OBJS) $(LDFLAGS) $(LDLIBS)
+<a id='L65' name='L65'></a>        @echo "$(PKGNAME) build completed [$(TARGET)]"
+<a id='L66' name='L66'></a>
+<a id='L67' name='L67'></a># Build object file for each .c file
+<a id='L68' name='L68'></a>SYSBINDIR :=  $(PREFIX)/bin
+<a id='L69' name='L69'></a>$(OBJDIR)/%.o : %.c
+<a id='L70' name='L70'></a>        @mkdir -p $(@D)
+<a id='L71' name='L71'></a>        $(CC) $(CFLAGS) $(WFLAGS) $(CPPFLAGS) $(INCLUDE) -c $&lt; -o $@
+<a id='L72' name='L72'></a>
+<a id='L73' name='L73'></a>install:
+<a id='L74' name='L74'></a>        install -D $(TARGET) $(DESTDIR)$(SYSBINDIR)/$(ELFNAME)
+<a id='L75' name='L75'></a>
+<a id='L76' name='L76'></a>uninstall:
+<a id='L77' name='L77'></a>        rm -f $(DESTDIR)$(SYSBINDIR)/$(ELFNAME)
+<a id='L78' name='L78'></a>
+<a id='L79' name='L79'></a>KTAGSDIR  := __ktags
+<a id='L80' name='L80'></a>COREFILES := core vgcore*
+<a id='L81' name='L81'></a>clean:
+<a id='L82' name='L82'></a>        rm -rf $(TARGET) $(OBJDIR) $(COREFILES) $(KTAGSDIR)
+<a id='L83' name='L83'></a>
+<a id='L84' name='L84'></a>-include $(DEPS)
+<a id='L85' name='L85'></a>
+<a id='L86' name='L86'></a>.PHONY: all clean info install uninstall 
+<a id='L87' name='L87'></a>
+<a id='L88' name='L88'></a>#EOMake
+</pre>
+<hr />
+<a id='BOTTOM' name='BOTTOM'></a>
+<em class='comment'>/* <img class='icon' src='../icons/n_left.png' alt='[previous]' /><img class='icon' src='../icons/n_right.png' alt='[next]' /><img class='icon' src='../icons/n_first.png' alt='[first]' /><img class='icon' src='../icons/n_last.png' alt='[last]' /><a href='#TOP'><img class='icon' src='../icons/top.png' alt='[top]' /></a><img class='icon' src='../icons/n_bottom.png' alt='[bottom]' /><a href='../mains.html'><img class='icon' src='../icons/index.png' alt='[index]' /></a><a href='../help.html'><img class='icon' src='../icons/help.png' alt='[help]' /></a>&nbsp;<input type='text' readonly onfocus='this.select();' value='+88 ktest/test/Makefile'  /> */</em>
+</body>
+</html>
